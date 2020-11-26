@@ -2,7 +2,7 @@
 A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of Skywater 130nm technology
 
 
-# Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK
+# Day 1: Introduction to IC design terminologies, OpenLANE and Sky130 PDK
 ## IC Design Terminologies:
 Integrated Chip (IC) is basically an integration of large number of transistors, resistors, capacitors fabricated into a single unit, performing a specific function. Based on the functions they perform, the ICs are categoried to analog and digital ICs. These ICs are enclosed in **Packages**, in the market there are multiple variation of Packages available such as through-hole mount packages, pin-grid array packages etc. The one package introduced in this workshop is QFN-48 (Quad Flat NO Leads) with a size of 7mmx7mm, here, 48 are the total number of pins that supports the information exchanges to and from the IC to the other parts of the design, variable pin packages are also available. 
 Chip, the chip generally sits at the centre of the package and are connected to the pins of the package through wire-bonds. The Chip has various components some of them are:

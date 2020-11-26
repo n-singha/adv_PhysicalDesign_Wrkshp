@@ -1,4 +1,5 @@
 # adv_PhysicalDesign_Wrkshp
+A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of Skywater 130nm technology
 
 
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK
@@ -23,7 +24,7 @@ For designing Open-Source Application Specific Integrated Circuits (ASIC) in aut
 
 ## RTL2GDS Flow
 ## Introduction to OpenLANE
-On the availability of open-sourced PDK, an open-sourced methodology and flow is introduced by **efabless** and named it as OpenLANE. It has two modes of operation:
+On the availability of open-sourced PDK, an open-sourced methodology and flow is introduced by **efabless** and named it as **OpenLANE**. It is an automated RTL2GDS flow tool that is built around various open-source EDA tools such as yosys, openROAD, Magic etc. It has two modes of operation:
 * Autonomous : it performs all of the ASIC flow in one step
 * Interactive : It is a step-by-step process to perform every phase of ASIC flow with specific commands.
 
@@ -32,16 +33,21 @@ On the availability of open-sourced PDK, an open-sourced methodology and flow is
 
 
 # Day 1: Lab Instance
-## OpenLane Directory & Invoking OpenLane
-pdk directory exploration: We are using skywater-130 pdk. 
-skywater pdk --> which has all pdk files.. tech lib, lef.lib
-open_pdks: all foundry files they are compatible with commercial eda tools not for open eda tools. this open_pdk directory overcomes this issue. It basically contains scripts.
-sky130A: the pdk thats made compatible to open source environment
-we will work on sky130_fd_sc_hd pdk variant
+**pdk directory exploration:** We are using skywater-130 pdk. In the terminal, a pdk directory is provided which contains all pdk related informations
+* skywater pdk --> which has all pdk files.. tech lib, lef.lib
+* open_pdks: all foundry files they are compatible with commercial eda tools not for open eda tools. This open_pdk directory overcomes this issue. It basically contains scripts.
+* sky130A: the pdk thats made compatible to open source environment
+   * libs.ref: the contents of this file are technology related. The skywater 130nm technology and sky130_fd_sc_hd pdk variant is used for the physical design flow in this workshop
+   * libs.tech: Tool related files are the content. 
 
 **Invoking Openlane** :
+Commands used: 
+
+<div class="bg-yellow-light mb-2">
 * ./flow.tcl -interactive  --> script to run openlane and interactive switch tells the tool will run in step-by-step mode default is autonomous
 * import all packages to run the flow : packages requires openlane 0.9
+</div>
+
 * prep stage: sets up all files for our design,. prep -design picorv32a
 * run_synthesis
 

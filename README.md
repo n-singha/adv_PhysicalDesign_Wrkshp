@@ -23,6 +23,9 @@ For designing Open-Source Application Specific Integrated Circuits (ASIC) in aut
 * PDK Data:  PDK stands for Process Design Kits,it is an interface between FAB and designers and contains information such as DRC and LVS rules, SPICE Model Parameters, Digital standard cell libraries etc. Earlier PDKs are under non-disclosure agreement,now, Google + Skywater tech, open-sourced the PDKs of 130nm tech on june 30,2020. 
 
 ## RTL2GDS Flow
+
+![](day1/ASIC_flow.PNG)
+
 ## Introduction to OpenLANE
 On the availability of open-sourced PDK, an open-sourced methodology and flow is introduced by ***efabless*** and named it as **OpenLANE**. It is an automated RTL2GDS flow tool that is built around various open-source EDA tools such as yosys, openROAD, Magic etc. It has two modes of operation:
 * Autonomous : it performs all of the ASIC flow in one step
@@ -30,17 +33,23 @@ On the availability of open-sourced PDK, an open-sourced methodology and flow is
 
 ## OpenLANE detailed ASIC Design Flow:
 
+![](day1/openlane_flowchart.PNG)
 
 
 # Day 1: Lab Instance
-**pdk directory exploration:** We are using skywater-130 pdk. In the terminal, a pdk directory is provided which contains all pdk related informations
+## PDK directory exploration:
+We are using skywater-130 pdk. In the terminal, a pdk directory is provided which contains all pdk related informations
 * skywater pdk --> which has all pdk files.. tech lib, lef.lib
 * open_pdks: all foundry files they are compatible with commercial eda tools not for open eda tools. This open_pdk directory overcomes this issue. It basically contains scripts.
 * sky130A: the pdk thats made compatible to open source environment
    * libs.ref: the contents of this file are technology related. The skywater 130nm technology and sky130_fd_sc_hd pdk variant is used for the physical design flow in this workshop
    * libs.tech: Tool related files are the content. 
+   
+   This snapshot shows the various files under the pdk directory.
+   
+   ![](day1/pdk_explore.PNG )
 
-**Invoking Openlane** :
+## Invoking Openlane: 
 
 Commands used: 
 ```
@@ -48,7 +57,10 @@ Commands used:
  packages requires openlane 0.9 //import all packages to run the flow 
 ```
 
-**Prepration Stage**
+![](day1/open_pack.PNG)
+
+## Prepration Stage:
+
 Command used: 
 ```
 prep -design picorv32a
@@ -59,9 +71,23 @@ prep -design picorv32a
 * ***-overwrite*** this switch erases everything created under the run folder
 * the command *set* helps chnaging any value in the config file within the Openlane environment itself. 
 
-**Synthesis**
+![](day1/prep.PNG)
+
+Snapshot showing changes done in the openlane environment.
+
+![](day1/chnges_oplne.PNG )
+
+## Synthesis stage: 
+
 Command used:
 ```
 * run_synthesis
 ```
 
+![](day1/run_synth.PNG)
+
+The below image shows the statistics in synthesis report from where we can calculate buffer or flop ratio.  
+![](day1/ratio_calc.PNG)
+
+The area shown in the synthesis report.
+![](day1/area_chip.PNG)

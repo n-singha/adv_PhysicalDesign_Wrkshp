@@ -24,7 +24,7 @@ For designing Open-Source Application Specific Integrated Circuits (ASIC) in aut
 
 ## RTL2GDS Flow
 ## Introduction to OpenLANE
-On the availability of open-sourced PDK, an open-sourced methodology and flow is introduced by **efabless** and named it as **OpenLANE**. It is an automated RTL2GDS flow tool that is built around various open-source EDA tools such as yosys, openROAD, Magic etc. It has two modes of operation:
+On the availability of open-sourced PDK, an open-sourced methodology and flow is introduced by ***efabless*** and named it as **OpenLANE**. It is an automated RTL2GDS flow tool that is built around various open-source EDA tools such as yosys, openROAD, Magic etc. It has two modes of operation:
 * Autonomous : it performs all of the ASIC flow in one step
 * Interactive : It is a step-by-step process to perform every phase of ASIC flow with specific commands.
 
@@ -41,13 +41,27 @@ On the availability of open-sourced PDK, an open-sourced methodology and flow is
    * libs.tech: Tool related files are the content. 
 
 **Invoking Openlane** :
+
 Commands used: 
+```
+ ./flow.tcl -interactive   //script to run openlane; interactive switch tells the tool will run in step-by-step mode; default is autonomous
+ packages requires openlane 0.9 //import all packages to run the flow 
+```
 
-<div class="bg-yellow-light mb-2">
-* ./flow.tcl -interactive  --> script to run openlane and interactive switch tells the tool will run in step-by-step mode default is autonomous
-* import all packages to run the flow : packages requires openlane 0.9
-</div>
+**Prepration Stage**
+Command used: 
+```
+prep -design picorv32a
+```
 
-* prep stage: sets up all files for our design,. prep -design picorv32a
+* the openlane has many designs incoporated in it the switch ***-design*** followed by *<design_name>* points to the design we will use in our PD flow.
+* ***-tag*** this switch followed by *<custom_name>* creates a custom name in the run folder of the design.
+* ***-overwrite*** this switch erases everything created under the run folder
+* the command *set* helps chnaging any value in the config file within the Openlane environment itself. 
+
+**Synthesis**
+Command used:
+```
 * run_synthesis
+```
 

@@ -94,3 +94,50 @@ The below image shows the statistics in synthesis report from where we can calcu
 
 The area shown in the synthesis report.
 ![](day1/area_chip.PNG)
+
+
+# Day 2: Lab instance
+## Runing Floorplan:
+After preparation of the design, runing synthesis the design is now ready for the floorplan phase of the physical design flow.
+command used:
+```
+run_floorplan
+```
+
+Openlane provides various switches that directs the floorplan. A snapshot of the switches shown:
+
+![](day2_lab/floorplan_switch.PNG)
+
+Metal layer defaults in the floorplan.tcl file:
+
+![](day2_lab/floorplan_tcl_defaults.PNG)
+
+IO_Log file generated after running floorplan:
+
+![](day2_lab/io_logfile_floorplan.PNG)
+
+Floorplan Def file:
+
+![](day2_lab/die_area.PNG)
+
+
+Reviewing the layout after the floorplan:
+
+command used:
+```
+magic -T <tech_file> lef read <lef file> def read <floorplan.def>
+```
+![](day2_lab/metal_layer_pins.PNG)
+
+placement run:
+
+```
+run_placement
+```
+![](day2_lab/placement_run.PNG )
+
+layout review after placement:
+
+![](day2_lab/placement_layout.PNG)
+
+

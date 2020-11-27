@@ -151,12 +151,16 @@ In Day 3 lab, we used a custom inverter cell, we cloned this standard cell from 
 magic -T sky130A.tech sky130_inv.mag  // this command is ran in the cloned directory else path to tech file needs to be provided.
 ```
 * cloning the *stdcelldesign*:
+
 ![](day3_lab/git_clone.PNG)
 
+
 * Inverter Layout
+
 ![](day3_lab/inv_cell.PNG)
 
 * identifying transistor in the layout
+
 ![](day3_lab/pmos_nmos_identify.PNG)
 
 * extracting the spice files
@@ -166,7 +170,8 @@ magic -T sky130A.tech sky130_inv.mag  // this command is ran in the cloned direc
   ext2spice cthresh 0 rthresh 0  // using cthresh, rthresh extract only those that are above 0 F or ohm. These are Filter threshold
   ext2spice
   ```
-![](day3_lab/extract_spice_file.PNG)
+
+![](day3_lab/spice_extraction.PNG)
 
 
 ### Spice Commands to be included in the extracted spice file:
@@ -189,9 +194,13 @@ command to open ngspice env:
 ngspice spice_inv.spice
 ```
 
-Characterization Parameters:
+
+**Characterization Parameters:**
+
 Cell delay: Difference between 50% output transition and 50% input transition.
+
 Rise delay: Time taken for waveform to rise from 20% to 80% of VDD.
+
 Fall delay: Time taken for waveform to rise from 20% to 80% of VDD.
 
 

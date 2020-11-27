@@ -116,7 +116,8 @@ IO_Log file generated after running floorplan:
 
 ![](day2_lab/io_logfile_floorplan.PNG)
 
-Floorplan Def file:
+Floorplan Def file: 
+The floorplan plan def gives us the die area of the chip in the format (llx,lly) (urx,ury)
 
 ![](day2_lab/die_area.PNG)
 
@@ -142,19 +143,33 @@ In the placement phase, the standard cells are placed in the floorplan recieved 
 
 # Day 3: Standard cell characterization and introduction to sky130 tech files
 # Day 3: Lab 
-In Day 3 lab, we used a custom inverter cell, we cloned this standard cell from *https://github.com/nickson-jose/vsdstdcelldesign* and used the layout of this cell to run the post ngspice simulations and calculate the characterization parameters of the inverter cell. This cell will then be plugged into the picorv32 design.
-Command used to see the inverter layout in magic: 
+In Day 3 lab, we used a custom inverter cell, we cloned this standard cell from *https://github.com/nickson-jose/vsdstdcelldesign* and used the layout of this cell to run the post ngspice simulations and calculate the characterization parameters of the inverter cell. This cell will then be plugged into the picorv32 design, in the subsequent days.
+
+### Command used to see the inverter layout in magic: 
 
 ```
 magic -T sky130A.tech sky130_inv.mag  // this command is ran in the cloned directory else path to tech file needs to be provided.
 ```
+* cloning the *stdcelldesign*:
+![](day3_lab/git_clone.PNG)
+
 * Inverter Layout
+![](day3_lab/inv_cell.PNG)
 
 * identifying transistor in the layout
+![](day3_lab/pmos_nmos_identify.PNG)
 
 * extracting the spice files
+  * commands to extract spice file
+  ```
+  extract all
+  ext2spice cthresh 0 rthresh 0  // using cthresh, rthresh extract only those that are above 0 F or ohm. These are Filter threshold
+  ext2spice
+  ```
+![](day3_lab/extract_spice_file.PNG)
 
-Spice Commands to be included in the extracted spice file:
+
+### Spice Commands to be included in the extracted spice file:
 * for including mos transitors: 
 ```
 include ./libs/nshort.lib
@@ -169,7 +184,7 @@ M2 out in  VGND VGND nshort w=35 l=23
 ```
 .tran 1n 10n
 ```
-command to run ngspice:
+command to open ngspice env:
 ```
 ngspice spice_inv.spice
 ```
@@ -180,11 +195,11 @@ Rise delay: Time taken for waveform to rise from 20% to 80% of VDD.
 Fall delay: Time taken for waveform to rise from 20% to 80% of VDD.
 
 
-Spice output: 
-
+Spice simulation: 
+![](day3_lab/cell_characterization.PNG)
 
 Skywater 130 tech file: 
-
+![](day3_lab/tech_file.PNG)
 
 
 

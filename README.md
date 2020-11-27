@@ -136,8 +136,62 @@ run_placement
 ```
 ![](day2_lab/placement_run.PNG )
 
-layout review after placement:
+In the placement phase, the standard cells are placed in the floorplan recieved from the floorplan phase. The layout review after placement in Magic:
 
 ![](day2_lab/placement_layout.PNG)
+
+# Day 3: Standard cell characterization and introduction to sky130 tech files
+# Day 3: Lab 
+In Day 3 lab, we used a custom inverter cell, we cloned this standard cell from *https://github.com/nickson-jose/vsdstdcelldesign* and used the layout of this cell to run the post ngspice simulations and calculate the characterization parameters of the inverter cell. This cell will then be plugged into the picorv32 design.
+Command used to see the inverter layout in magic: 
+
+```
+magic -T sky130A.tech sky130_inv.mag  // this command is ran in the cloned directory else path to tech file needs to be provided.
+```
+* Inverter Layout
+
+* identifying transistor in the layout
+
+* extracting the spice files
+
+Spice Commands to be included in the extracted spice file:
+* for including mos transitors: 
+```
+include ./libs/nshort.lib
+include ./libs/nshort.lib
+```
+* netlist description
+```
+M1 out in  VPWR VPWR pshort w=37 l=23
+M2 out in  VGND VGND nshort w=35 l=23
+```
+* simulation command
+```
+.tran 1n 10n
+```
+command to run ngspice:
+```
+ngspice spice_inv.spice
+```
+
+Characterization Parameters:
+Cell delay: Difference between 50% output transition and 50% input transition.
+Rise delay: Time taken for waveform to rise from 20% to 80% of VDD.
+Fall delay: Time taken for waveform to rise from 20% to 80% of VDD.
+
+
+Spice output: 
+
+
+Skywater 130 tech file: 
+
+
+
+
+
+
+
+
+
 
 

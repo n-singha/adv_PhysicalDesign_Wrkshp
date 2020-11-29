@@ -295,7 +295,7 @@ For including the cell to the openlane, we copy the extracted lef file to the pi
 
   set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef] //this indicates to include the lef file that we extracted in the openlane flow.   
   ```
-  ![]()
+  ![](sta/config_file.PNG)
 
   Additional commands to run for including the cell in the openlane flow env:
   ```
@@ -411,29 +411,62 @@ In Openroad, timing analaysis includes the following steps:
    set_propagated_clock [all_clocks]
    report_checks -path_delay min_max -format full_clock_expanded -digits 4
    ```
-
+   set up slack after cts run
+   
+   ![](sta/after_cts_slack.PNG)
+   
+   hold slack after cts run   
+   
+   ![](sta/after_cts_hold.PNG)
 
 # Day 5: Routing, PDN and SPEF Extraction
 # Day 5: Lab
 On Day 5 Lab, we will be completing the Routing of the PnR Flow. 
 ## Building Power Distribution Network
+
 PDN generally takes palce after floorplaning, due to openlane config, this stage is carried out after CTS.
 command:
 ```
 gen_pdn
 ```
+![](day4_cell_plug/route_img/gen_pdn.PNG)
+
+![](day4_cell_plug/route_img/pdn_def.PNG )
 
 ## Routing
+For this workshop, we used the ROUTING_STRATEGY as 0 due to its less run time and less memory consumption, however on the downside we get 3 violations which needs to be fixed manually. For, DRC clean we can use  ROUTING_STRATEGY 14
+
 command
 ```
 run_routing
 ```
+![](day4_cell_plug/route_img/routing_complete.PNG)
+
+snapshot showing number of violations:
+
+![](no_violations.PNG)
+
+The violations: 
+
+![](day4_cell_plug/route_img/routing_violation_file.PNG)
 
 ## Post-route STA 
-   
-      
 
+For post-route STA, we need to extract SPEF, this is done using SPEF_EXTRACTOR. The SPEF_EXTRACTOR engine, is basically a python based engine and is not integrated in the openLANE. So, the SPEF extraction is done outside the openlane flow. For SPEF extraction we use the following command:
 
+```
+python3 <path_to_lef_file> <path_to_routing_def_file>
+```
+The output is a spef file created in the same directory as the def file.
+
+![](day4_cell_plug/route_img/extracting_spef.PNG)
+
+![](day4_cell_plug/route_img/spef_file_created.PNG)      
+
+After the spef file creation we can follow the same procedure as post CTS STA analysis, with a added command:
+```
+read_spef <path to spef file>
+```
 
 
 

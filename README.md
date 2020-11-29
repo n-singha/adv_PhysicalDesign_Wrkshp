@@ -450,6 +450,7 @@ In Openroad, timing analaysis includes the following steps:
 * routing means finding the best possible way to connect two components/cells.
 * most of the routing tools are based on the Lee's Algorithm. For more info on the algorithm please refer here
 * Routes with minimum amount of bends is prefered by the tool
+* Two stages of Routing: Global and Detailed Routing.  
 ## DRC (Design Rule Check):
 Wires are made using optical lithography techniques so, most of the design rules comes from the lithography point of view.
 Some of DRC rules for a pair of Wires:
@@ -507,6 +508,9 @@ After the spef file creation we can follow the same procedure as post CTS STA an
 read_spef <path to spef file>
 ```
 
+# Acknowledgement
+* Kunal Ghosh, Co-founder (VSD Corp. Pvt. Ltd)
+* Nickson P Jose, Teaching Assistant,VSD Corp. Pvt. Ltd.
 
 
 

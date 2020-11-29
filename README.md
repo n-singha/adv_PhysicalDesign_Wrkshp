@@ -1,5 +1,5 @@
 # adv_PhysicalDesign_Wrkshp
-A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of Skywater 130nm technology (more breifing at the end of day 5). 
+A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of Skywater 130nm technology.  
 
 
 # Day 1: Introduction to IC design terminologies, OpenLANE and Sky130 PDK
@@ -103,14 +103,28 @@ The area shown in the synthesis report.
 
 # Day 2: Floorplan considerations and introduction to standard cell flow
 ## Floorplan consideration
-The following aspects are considered in the floorplaning aspects:
+The following aspects are considered in the floorplaning phase:
 * core and die area
 * preplaced cell
 * Power planing
 * Pin placement 
 * Cell blockage
 
-## Library Binding and Placement
+## Standard Cell Flow
+Design of a single cell of the library has the following Flow:
+
+* INPUTS-PDKs:
+   * DRC and LVS rules: these information is provided by the foundries
+   * Spice model Parameters
+   * user defined spec: e.g cell height, width, supply voltage, pin locations
+* Design Steps:
+   * Circuit design: here we implement the function using the spice simulation
+   * Layout design: euler's path and stick diagram concepts are utilized for layouts
+* characterization : Timing parameters such as transition delay, cell delay etc.
+* Outputs:
+  * CDL
+  * extracted spice netlist
+  * timing,noise, power .lib
 
 
 # Day 2: Lab instance
@@ -235,7 +249,12 @@ Skywater 130 tech file:
 ![](day3_lab/tech_file.PNG)
 
 
-# Timing Analysis and Introduction to CTS and Triton CTS
+# Timing Analysis and Introduction to CTS and TritonCTS 
+* Introduced to the concept of delay tables. The delay tables contain the delay of a cell w.r.t input slew and output load.
+* Set up and hold time w.r.t ideal and real clocks. In the case of real clocks, the concept of clock jitter and clock skew comes to the picture.
+* Slack is met when the condition data required - data arrival time is positive i.e. no timing violation.
+* The analysis of hold doesnot matter before the CTS stage because pre-CTS the clocks are considered ideal. 
+
 # Day 4: Lab
 In Day 3, we characterized the standard cell, on Day 4 lab we will plug this standard cell into our picorv32a design and then perform timing analysis and CTS. 
 
@@ -419,9 +438,23 @@ In Openroad, timing analaysis includes the following steps:
    
    ![](sta/after_cts_hold.PNG)
 
-# Day 5: Routing, PDN and SPEF Extraction
+# Day 5: Routing and DRC
+
+## Routing:
+* routing means finding the best possible way to connect two components/cells.
+* most of the routing tools are based on the Lee's Algorithm. For more info on the algorithm please refer here
+* Routes with minimum amount of bends is prefered by the tool
+## DRC (Design Rule Check):
+Wires are made using optical lithography techniques so, most of the design rules comes from the lithography point of view.
+Some of DRC rules for a pair of Wires:
+* Wire pitch
+* Wire Space
+* Wire Width
+Physical wires have resistance and capacitance and these information are extracted and represented in the form of a file format called SPEF
+
 # Day 5: Lab
 On Day 5 Lab, we will be completing the Routing of the PnR Flow. 
+
 ## Building Power Distribution Network
 
 PDN generally takes palce after floorplaning, due to openlane config, this stage is carried out after CTS.

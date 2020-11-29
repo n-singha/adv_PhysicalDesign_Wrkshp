@@ -273,20 +273,20 @@ In Day 3, we characterized the standard cell, on Day 4 lab we will plug this sta
     
 * **Step 2-Plugging the cell to the design:**
 For including the cell to the openlane, we copy the extracted lef file to the picorv32a/src directory. Now when we run synthesis, the 1st phase of openlane, the tool needs to map our sky130_vsdinv cell. In order to do that, we need to have a library that includes our cell so that it can be mapped by the *abc* tool. The vsdstdcell directory that we cloned in the previous day lab session, also includes the lib that includes the customed sky130_vsdinv cell. We copy these libs to our src folder. After that we need to configure the config.tcl file of the design. The following configuration steps added in the file: 
-```
-set ::env(LIB_SYNTH) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib" // LIB_SYNTH is a mapping library
-set ::env(LIB_MIN) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib" // used for STA PURPOSE.
-set ::env(LIB_MAX) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
-set ::env(LIB_TYPICAL) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+  ```
+  set ::env(LIB_SYNTH) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib" // LIB_SYNTH is a mapping library
+  set ::env(LIB_MIN) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib" // used for STA PURPOSE.
+  set ::env(LIB_MAX) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+  set ::env(LIB_TYPICAL) "$(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
 
-set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef] //this indicates to include the lef file that we extracted in the openlane flow.   
-```
+  set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef] //this indicates to include the lef file that we extracted in the openlane flow.   
+  ```
 
-Additional commands to run for including the cell in the openlane flow env:
-```
-set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
-add_lefs -src $lefs
-```
+  Additional commands to run for including the cell in the openlane flow env:
+  ```
+  set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+  add_lefs -src $lefs
+  ```
 
 * **Step 3- Run Synthesis** 
 After running synthesis in the openlane we can see a violation of around -15.00. Now in this phase of the PnR flow, we will use some of the switches provided by the openlane tool for the synthesis phase in order to decrease the slack. The switches used are:
@@ -325,15 +325,70 @@ Techniques used for Slack reduction in the workshop:
   ```
   
   ```
-  report_checks -from <start_point> -to <end_pont> -through instance
+  report_checks -from <start_point> -to <end_pont> -through 
   ```
-
+  On replacing cells for reducing slack changes are being done on the netlist of the design. This updated netlist is overwritten uisng the following command:
+  ```
+  write_verilog /work/tools/openlane_working_dir/openLANE_flow/designs/picorv32a/runs/trial2/results/synthesis/picorv32a.synthesis.v
+  ```
+  To verify if the netlist is modified, we can check the if last cell instance is replaced with the buffer of the given size in the netlist is replaced or not. 
+  
 
 ## Running CTS and Post CTS timing Analysis
 
+### Steps to run CTS using TritonCTS:
+With the modified netlist we run floorplan and placement again and then comes CTS. TritonCTS is the tool that does the CTS
+
+Command:
+
+```
+run_cts //ran with the default settings for typical corner. 
+```
+
+In the cts phase, buffers get added, so a new modified netlist will be generated in the *run/trial2/results/synthesis/* folder
 
 
+### Timing Analysis Post CTS
+
+The post-Synthesis Timing Analysis was done in OpenSTA outside the openLANE, for Post CTS the timing analysis can be done using Openroad within the Openlane environment as Openroad is integrated into Openlane (refer to Openlane flow chart there we can see that Synthesis is outside the Openroad app, hence we did the timing analysis outside openlane). 
+In Openroad, timing analaysis includes the following steps:
+* creating a db file:
+   Commands:
+   ```
+   read_lef <lef file path>
+   read_def  <cts def file path>
+   write_db <file_name.db> // db file creation is a one time process unless the def file is changed.
+   ```
    
+ * Analysis Steps:
+   Commands:
+   ```
+   read_db <file_name.db>
+   read_verilog <netlist created after the cts phase>
+   read_liberty $::env(LIB_SYNTH_COMPLETE) // we are not using LIB_MAX & LIB_MIN because we ran our cts for one corner that is the typical corner.
+   read_sdc <sdc file path>
+   set_propagated_clock [all_clocks]
+   report_checks -path_delay min_max -format full_clock_expanded -digits 4
+   ```
+
+
+# Day 5: Routing, PDN and SPEF Extraction
+# Day 5: Lab
+On Day 5 Lab, we will be completing the Routing of the PnR Flow. 
+## Building Power Distribution Network
+PDN generally takes palce after floorplaning, due to openlane config, this stage is carried out after CTS.
+command:
+```
+gen_pdn
+```
+
+## Routing
+command
+```
+run_routing
+```
+
+## Post-route STA 
    
       
 

@@ -74,9 +74,14 @@ prep -design picorv32a
 * ***-overwrite*** this switch erases everything created under the run folder
 * the command *set* helps chnaging any value in the config file within the Openlane environment itself. 
 
+Command format using switches:
+```
+prep -design <design_name> -tag <custom_name_for run> -overwrite
+```
+
 ![](day1/prep.PNG)
 
-Snapshot showing changes done in the openlane environment.
+Snapshot showing changes done in the openlane environment, the use of the *set* command for changing the value of clock on the openlane environment. 
 
 ![](day1/chnges_oplne.PNG )
 
@@ -84,7 +89,7 @@ Snapshot showing changes done in the openlane environment.
 
 Command used:
 ```
-* run_synthesis
+run_synthesis
 ```
 
 ![](day1/run_synth.PNG)
@@ -93,10 +98,23 @@ The below image shows the statistics in synthesis report from where we can calcu
 ![](day1/ratio_calc.PNG)
 
 The area shown in the synthesis report.
+
 ![](day1/area_chip.PNG)
+
+# Day 2: Floorplan considerations and introduction to standard cell flow
+## Floorplan consideration
+The following aspects are considered in the floorplaning aspects:
+* core and die area
+* preplaced cell
+* Power planing
+* Pin placement 
+* Cell blockage
+
+## Library Binding and Placement
 
 
 # Day 2: Lab instance
+
 ## Runing Floorplan:
 After preparation of the design, runing synthesis the design is now ready for the floorplan phase of the physical design flow.
 command used:
@@ -104,7 +122,8 @@ command used:
 run_floorplan
 ```
 
-Openlane provides various switches that directs the floorplan. A snapshot of the switches shown:
+Openlane provides various switches that can direct the floorplan. The pnr flow is an iterative flow, the switches can be set or unset based on the what iterative part we are in.
+A snapshot of the switches is shown:
 
 ![](day2_lab/floorplan_switch.PNG)
 
@@ -117,7 +136,7 @@ IO_Log file generated after running floorplan:
 ![](day2_lab/io_logfile_floorplan.PNG)
 
 Floorplan Def file: 
-The floorplan plan def gives us the die area of the chip in the format (llx,lly) (urx,ury)
+The floorplan plan def gives us the die area of the chip in the format ***(llx,lly) (urx,ury)***
 
 ![](day2_lab/die_area.PNG)
 
@@ -130,16 +149,20 @@ magic -T <tech_file> lef read <lef file> def read <floorplan.def>
 ```
 ![](day2_lab/metal_layer_pins.PNG)
 
-placement run:
+## Placement run:
+In the placement phase, the standard cells are placed in the floorplan recieved from the floorplan phase. The placement, in the initial stage of flow is constrained on congestion part and further down the PnR flow, the placement is made timing constraint.
+
+Command used to run: 
 
 ```
 run_placement
 ```
 ![](day2_lab/placement_run.PNG )
 
-In the placement phase, the standard cells are placed in the floorplan recieved from the floorplan phase. The layout review after placement in Magic:
+The layout review after placement in Magic:
 
 ![](day2_lab/placement_layout.PNG)
+
 
 # Day 3: Standard cell characterization and introduction to sky130 tech files
 # Day 3: Lab 
@@ -175,17 +198,17 @@ magic -T sky130A.tech sky130_inv.mag  // this command is ran in the cloned direc
 
 
 ### Spice Commands to be included in the extracted spice file:
-* for including mos transitors: 
+* mos transitors inclusion: 
 ```
 include ./libs/nshort.lib
 include ./libs/nshort.lib
 ```
-* netlist description
+* description of netlist
 ```
 M1 out in  VPWR VPWR pshort w=37 l=23
 M2 out in  VGND VGND nshort w=35 l=23
 ```
-* simulation command
+* simulation command used
 ```
 .tran 1n 10n
 ```
@@ -201,14 +224,25 @@ Cell delay: Difference between 50% output transition and 50% input transition.
 
 Rise delay: Time taken for waveform to rise from 20% to 80% of VDD.
 
-Fall delay: Time taken for waveform to rise from 20% to 80% of VDD.
+Fall delay: Time taken for waveform to fall from 80% to 20% of VDD.
 
 
 Spice simulation: 
+
 ![](day3_lab/cell_characterization.PNG)
 
 Skywater 130 tech file: 
 ![](day3_lab/tech_file.PNG)
+
+
+# Timing Analysis and Introduction to CTS and Triton CTS
+# Day 4: Lab
+In Day 3, we characterized the standard cell, on Day 4 lab we will plug this standard cell into our picorv32a design and then perform timing analysis and CTS. 
+
+
+## Plugging the stdcell into picorv32a:
+Steps:
+* extract the *lef* file
 
 
 

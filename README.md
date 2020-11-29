@@ -178,8 +178,14 @@ The layout review after placement in Magic:
 ![](day2_lab/placement_layout.PNG)
 
 
-# Day 3: Standard cell characterization and introduction to sky130 tech files
+# Day 3: Standard cell characterization and introduction to sky130 tech file
+
+## Sky130 tech file:
+The SKY130 is 130nm technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone.
+For more info please refer https://skywater-pdk--136.org.readthedocs.build/en/136/
+
 # Day 3: Lab 
+
 In Day 3 lab, we used a custom inverter cell, we cloned this standard cell from *https://github.com/nickson-jose/vsdstdcelldesign* and used the layout of this cell to run the post ngspice simulations and calculate the characterization parameters of the inverter cell. This cell will then be plugged into the picorv32 design, in the subsequent days.
 
 ### Command used to see the inverter layout in magic: 

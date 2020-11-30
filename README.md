@@ -3,12 +3,32 @@ A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of 
 
 
 # Table of Contents
-  * [Day 1: Introduction to IC design terminologies, OpenLANE and PDK](#Day 1) 
+  * Day 1: Introduction to IC design terminologies, OpenLANE and PDK
     * IC Design Terminologies
     * RISC-V 
     * Components of ASIC flow digital design
-
-
+    * RTL2GDS flow
+    * Introduction to OpenLANE
+    * OpenLANE detailed ASIC Design Flow
+    * Day 1 LAB
+  * Day 2: Floorplan considerations and introduction to standard cell flow
+    * Floorplan considerations
+    * standard cell flow
+    * Day 2 LAB 
+  * Day 3: Standard cell characterization and introduction to sky130 tech file
+    * Spice Deck Creation
+    * introduction to sky130 tech
+    * Day 3 LAB
+  * Day 4: Timing Analysis and CTS
+    * Timin Analysis concepts
+    * Day 4 LAB
+  * Day 5: Routing and DRC
+    * Routing concepts
+    * DRC
+    * Day 5 LAB
+  * Acknowledgement
+  
+  
 # Day 1: Introduction to IC design terminologies, OpenLANE and PDK <a name="Day 1"></a>
 ## IC Design Terminologies:
 Integrated Chip (IC) is basically an integration of large number of transistors, resistors, capacitors fabricated into a single unit, performing a specific function. Based on the functions they perform, the ICs are categoried to analog and digital ICs. 
@@ -274,6 +294,7 @@ Skywater 130 tech file:
 
 
 # Timing Analysis and Introduction to CTS and TritonCTS 
+
 * Introduced to the concept of delay tables. The delay tables contain the delay of a cell w.r.t input slew and output load.
 * Set up and hold time w.r.t ideal and real clocks. In the case of real clocks, the concept of clock jitter and clock skew comes to the picture.
 * Slack is met when the condition data required - data arrival time is positive i.e. no timing violation.

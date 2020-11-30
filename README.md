@@ -2,7 +2,14 @@
 A workshop offering hands-on experience with OpenLANE EDA tool using the PDK of Skywater 130nm technology.  
 
 
-# Day 1: Introduction to IC design terminologies, OpenLANE and Sky130 PDK
+# Table of Contents
+  * [Day 1: Introduction to IC design terminologies, OpenLANE and PDK](#Day 1) 
+    * IC Design Terminologies
+    * RISC-V 
+    * Components of ASIC flow digital design
+
+
+# Day 1: Introduction to IC design terminologies, OpenLANE and PDK <a name="Day 1"></a>
 ## IC Design Terminologies:
 Integrated Chip (IC) is basically an integration of large number of transistors, resistors, capacitors fabricated into a single unit, performing a specific function. Based on the functions they perform, the ICs are categoried to analog and digital ICs. 
 
@@ -104,13 +111,14 @@ The area shown in the synthesis report.
 # Day 2: Floorplan considerations and introduction to standard cell flow
 ## Floorplan consideration
 The following aspects are considered in the floorplaning phase:
-* core and die area
+* core and die area: 
 * preplaced cell
 * Power planing
 * Pin placement 
 * Cell blockage
 
-## Standard Cell Flow
+## Standard Cell Flow:
+The standard cell libraries consists of different cells, each cell is varied in terms of functionality,sizes, timing parameters, thereshold voltage etc. 
 Design of a single cell of the library has the following Flow:
 
 * INPUTS-PDKs:
@@ -179,6 +187,16 @@ The layout review after placement in Magic:
 
 
 # Day 3: Standard cell characterization and introduction to sky130 tech file
+
+## Spice Deck Creation Steps:
+* Include statements for models
+* Component connectivity
+* Component Values
+* Identify nodes
+* name nodes
+* Simulation commands
+
+For viewing waveform of the spice deck ngsppice is used. 
 
 ## Sky130 tech file:
 The SKY130 is 130nm technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone.

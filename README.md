@@ -341,7 +341,7 @@ In Day 3, we characterized the standard cell, on Day 4 lab we will plug this sta
    
      commands used:
      ```
-     magic -T sky130A.tech save sky130_vsdinv.mag &
+     magic -T sky130A.tech sky130_vsdinv.mag &
      // in the tkcon window type
      lef write // this creates a lef file with the same name and in the same directory.
      

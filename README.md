@@ -534,7 +534,7 @@ The violations:
 For post-route STA, we need to extract SPEF, this is done using SPEF_EXTRACTOR. The SPEF_EXTRACTOR engine, is basically a python based engine and is not integrated in the openLANE. So, the SPEF extraction is done outside the openlane flow. For SPEF extraction we use the following command:
 
 ```
-python3 <path_to_lef_file> <path_to_routing_def_file>
+python3 main.py <path_to_lef_file> <path_to_routing_def_file>
 ```
 The output is a spef file created in the same directory as the def file.
 
